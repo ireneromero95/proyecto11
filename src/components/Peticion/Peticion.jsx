@@ -1,28 +1,29 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Peticion = () => {
+const Peticion = ({ setPokemonData }) => {
   const [filter, setFilter] = useState('charmander');
-  const [pokemon, setPokemon] = useState([]);
+  const [pokemon, setPokemon] = useState(null);
 
   useEffect(() => {
     const getPokemonFiltered = async () => {
-      const pokemon = await fetch(
+      const response = await fetch(
         `https://pokeapi.co/api/v2/pokemon/${filter}`
       );
-      const pokemonJson = await pokemon.json();
+      const pokemonJson = await response.json();
 
-      return {
-        ...pokemonJson,
+      const pokemonData = {
         name: pokemonJson.name,
         id: pokemonJson.id,
         image: pokemonJson.sprites.front_default,
         type: pokemonJson.types[0].type.name
       };
+
+      setPokemon(pokemonData); //Aqui para tener el pokemon aqui y sacalre la imagne
+      setPokemonData(pokemonData); // Esto es lo que utilizo para comparar los tipos
     };
 
-    getPokemonFiltered().then((pokemon) => setPokemon([pokemon]));
-  }, [filter]);
+    getPokemonFiltered();
+  }, [filter, setPokemonData]);
 
   return (
     <div className='areaJugador'>
@@ -31,14 +32,11 @@ const Peticion = () => {
         <option value='squirtle'>Squirtle</option>
         <option value='bulbasaur'>Bulbasaur</option>
       </select>
-      <div>
-        {pokemon.map((p) => (
-          <div key={p.id}>
-            <img src={p.image} alt={p.name} />
-            <h2>{p.type}</h2>
-          </div>
-        ))}
-      </div>
+      {pokemon && (
+        <div>
+          <img src={pokemon.image} alt={pokemon.name} />
+        </div>
+      )}
     </div>
   );
 };
