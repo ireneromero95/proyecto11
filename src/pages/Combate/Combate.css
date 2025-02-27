@@ -1,0 +1,24 @@
+.combate {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px;
+}
+
+.resultados {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.resultados button {
+  width: auto;
+  padding: 10px 20px;
+}
+
+.winnerText {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--secondary-color);
+  text-align: center;
+}

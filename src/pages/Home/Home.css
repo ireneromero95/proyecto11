@@ -1,0 +1,10 @@
+h1 {
+  color: gray;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
