@@ -4,9 +4,9 @@
   font-weight: 400;
 
   --primary-color: #c4d9ff;
-  --primary-color: #c4d9ff;
   --secondary-color: #a39ad5; /* Background header */
   --tertiary-color: #fbfbfb; /* Main */
+  --quaternary-color: #ffcb05;
   background-color: var(--tertiary-color);
 }
 
