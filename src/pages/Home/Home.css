@@ -1,11 +1,170 @@
 h1 {
-  color: gray;
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  color: var(--secondary-color);
 }
 
-.home {
+.pokemon-container {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 80%;
+}
+
+.background-sprites {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg-pokemon {
+  position: absolute;
+  width: 60px;
+  /* opacity: 0.1; */
+  pointer-events: none;
+}
+
+#selector-container {
   display: flex;
   justify-content: center;
-  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+#selector-container select {
+  width: 200px;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.3s;
+  display: block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+#selector-container select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+#pokemonDetailsContainer {
+  display: flex;
   justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.pokemon-sprite-box {
+  background-color: #f2f2f2;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 180px;
+}
+
+.pokemon-sprite-box img {
+  width: 100%;
+  height: auto;
+}
+
+.pokemon-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.pokemon-info h2 {
+  text-transform: capitalize;
+}
+
+.pokemon-info span {
+  text-transform: capitalize;
+}
+
+.pokemon-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.pokemon-type {
+  padding: 5px 12px;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.9em;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+/* Los colores para todos los tipos */
+.type-fire {
+  background-color: #f08030;
+}
+.type-water {
+  background-color: #6890f0;
+}
+.type-grass {
+  background-color: #78c850;
+}
+.type-electric {
+  background-color: #f8d030;
+}
+.type-normal {
+  background-color: #a8a878;
+}
+.type-bug {
+  background-color: #a8b820;
+}
+.type-flying {
+  background-color: #a890f0;
+}
+.type-ghost {
+  background-color: #705898;
+}
+.type-fairy {
+  background-color: #f0a0a0;
+}
+.type-fighting {
+  background-color: #c03028;
+}
+.type-dragon {
+  background-color: #7038f8;
+}
+.type-ground {
+  background-color: #e0c068;
+}
+.type-poison {
+  background-color: #a040a0;
+}
+.type-psychic {
+  background-color: #f85888;
+}
+.type-rock {
+  background-color: #b8a038;
+}
+.type-steel {
+  background-color: #b8b8d0;
+}
+.type-ice {
+  background-color: #98d8d8;
 }

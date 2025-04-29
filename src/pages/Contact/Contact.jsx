@@ -67,8 +67,7 @@ const Contact = () => {
     setFormStatus({
       isSubmitted: true,
       isError: false,
-      message:
-        '¡Mensaje enviado correctamente! Nos pondremos en contacto contigo pronto.'
+      message: '¡Mensaje enviado con éxito!'
     });
 
     setFormData({
@@ -87,8 +86,7 @@ const Contact = () => {
   return (
     <div className='contact-container'>
       <div className='contact-header'>
-        <h2>Centro de Contacto Pokémon</h2>
-        <p>¿Tienes alguna pregunta sobre Pokémon?</p>
+        <h2>Contacto</h2>
       </div>
 
       {formStatus.isSubmitted && (

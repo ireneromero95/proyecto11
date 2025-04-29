@@ -6,6 +6,12 @@ header {
   background-color: var(--secondary-color);
   overflow: hidden;
   transition: all 0.5s;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 header ul {

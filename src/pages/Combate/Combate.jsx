@@ -28,6 +28,7 @@ const Combate = () => {
 
   return (
     <div className='areaJuego'>
+      <h1>Combate</h1>
       <div className='combate'>
         <Peticion setPokemonData={setPokemon1} />
         <Peticion setPokemonData={setPokemon2} />
