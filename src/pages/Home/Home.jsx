@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Loading from '../../components/Loading/Loading';
+
 import './Home.css';
 
 const Home = () => {
   const [selectedRegion, setSelectedRegion] = useState('kanto');
-  const [selectedPokemon, setSelectedPokemon] = useState('');
   const [pokemonList, setPokemonList] = useState([]);
-  const [pokemonDetails, setPokemonDetails] = useState(null);
-  //para el fondo
-
   const [backgroundSprites, setBackgroundSprites] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!selectedRegion) return;
@@ -20,70 +20,22 @@ const Home = () => {
     };
 
     const [start, end] = regiones[selectedRegion];
-    const pokemons = [];
-
+    const urls = [];
     for (let i = start; i <= end; i++) {
-      pokemons.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
+      urls.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
     }
 
-    Promise.all(
-      pokemons.map((url) => fetch(url).then((res) => res.json()))
-    ).then((data) => {
-      const lista = data.map((p) => ({ name: p.name, id: p.id }));
-      setPokemonList(lista);
-    });
+    setLoading(true);
+    Promise.all(urls.map((url) => fetch(url).then((res) => res.json())))
+      .then((data) => {
+        const lista = data.map((p) => ({ name: p.name, id: p.id }));
+        setPokemonList(lista);
+      })
+      .finally(() => {
+        console.log('Cambio');
+        setLoading(false);
+      });
   }, [selectedRegion]);
-  //Pa cambio de pokemon
-  useEffect(() => {
-    if (!selectedPokemon) return;
-
-    const fetchPokemon = async () => {
-      const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${selectedPokemon}`
-      );
-      const data = await response.json();
-      setPokemonDetails(data);
-    };
-
-    fetchPokemon();
-  }, [selectedPokemon]);
-
-  //Pa la descripcion
-
-  useEffect(() => {
-    if (!selectedPokemon) return;
-
-    const fetchPokemonData = async () => {
-      try {
-        const res = await fetch(
-          `https://pokeapi.co/api/v2/pokemon/${selectedPokemon}`
-        );
-        const data = await res.json();
-
-        const speciesRes = await fetch(data.species.url);
-        const speciesData = await speciesRes.json();
-
-        const flavorEntry = speciesData.flavor_text_entries.find(
-          (entry) => entry.language.name === 'es'
-        );
-
-        const description = flavorEntry
-          ? flavorEntry.flavor_text.replace(/\n|\f/g, ' ')
-          : 'Descripción no disponible.';
-        //datos y descripcion
-        setPokemonDetails({
-          ...data,
-          description
-        });
-      } catch (error) {
-        console.error('Error al obtener los datos del Pokémon:', error);
-      }
-    };
-
-    fetchPokemonData();
-  }, [selectedPokemon]);
-
-  //para crear el fondo?
 
   useEffect(() => {
     const total = 70;
@@ -137,44 +89,24 @@ const Home = () => {
             <option value='johto'>Johto</option>
             <option value='hoenn'>Hoenn</option>
           </select>
-          <select
-            id='pokemon'
-            value={selectedPokemon}
-            onChange={(e) => setSelectedPokemon(e.target.value)}
-          >
-            <option value=''>Selecciona un pokémon</option>
-            {pokemonList.map((pokemon) => (
-              <option key={pokemon.id} value={pokemon.name}>
-                {pokemon.name}
-              </option>
-            ))}
-          </select>
         </div>
 
-        {pokemonDetails && (
-          <div id='pokemonDetailsContainer'>
-            <div className='pokemon-sprite-box'>
-              <img
-                src={pokemonDetails.sprites.front_default}
-                alt={pokemonDetails.name}
-              />
-            </div>
-            <div className='pokemon-info'>
-              <h2>{pokemonDetails.name}</h2>
-              <div className='pokemon-types'>
-                {pokemonDetails.types.map((type) => (
-                  <span
-                    key={type.type.name}
-                    className={`pokemon-type type-${type.type.name}`}
-                  >
-                    {type.type.name}
-                  </span>
-                ))}
-              </div>
-              <p>
-                <strong>Descripción:</strong> {pokemonDetails.description}
-              </p>
-            </div>
+        {loading ? (
+          <Loading />
+        ) : (
+          <div className='pokemon-grid'>
+            {pokemonList.map((pokemon) => (
+              <Link
+                key={pokemon.id}
+                to={`/pokemon/${pokemon.id}`}
+                className='pokemon-card'
+              >
+                <img
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
+                  alt={pokemon.name}
+                />
+              </Link>
+            ))}
           </div>
         )}
       </div>
