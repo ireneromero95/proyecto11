@@ -18,6 +18,7 @@ PokeApp es una aplicación web que muestra información detallada de Pokémon ut
 
 - **Listado de Pokémon**: Visualiza Pokémon según su región.
 - **Detalle de Pokémon**: Al seleccionar uno, se muestra su información completa.
+- - **Combate Pokémon**: Pelea utilizando los tipos de los tres iniciales de Johto (primera generación).
 ---
 
 ## Instalación
