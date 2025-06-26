@@ -60,11 +60,11 @@ h1 {
 .bg-pokemon {
   position: absolute;
   width: 60px;
-  /* opacity: 0.1; */
   pointer-events: none;
 }
 
 #selector-container {
+  align-items: center;
   display: flex;
   justify-content: center;
   gap: 1rem;

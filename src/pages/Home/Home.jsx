@@ -4,6 +4,9 @@ import Loading from '../../components/Loading/Loading';
 
 import './Home.css';
 
+const getImagenUrl = (id) =>
+  `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+
 const Home = () => {
   const [selectedRegion, setSelectedRegion] = useState('kanto');
   const [pokemonList, setPokemonList] = useState([]);
@@ -13,30 +16,42 @@ const Home = () => {
   useEffect(() => {
     if (!selectedRegion) return;
 
-    const regiones = {
-      kanto: [1, 151],
-      johto: [152, 251],
-      hoenn: [252, 386]
+    const regionToPokedex = {
+      kanto: 'kanto',
+      johto: 'original-johto',
+      hoenn: 'hoenn'
     };
 
-    const [start, end] = regiones[selectedRegion];
-    const urls = [];
-    for (let i = start; i <= end; i++) {
-      urls.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
-    }
-
     setLoading(true);
-    Promise.all(urls.map((url) => fetch(url).then((res) => res.json())))
-      .then((data) => {
-        const lista = data.map((p) => ({ name: p.name, id: p.id }));
+
+    const fetchPokemonByRegion = async () => {
+      try {
+        const apiRegion = regionToPokedex[selectedRegion];
+        const res = await fetch(
+          `https://pokeapi.co/api/v2/pokedex/${apiRegion}`
+        );
+        const data = await res.json();
+
+        const lista = data.pokemon_entries.map((entry) => {
+          const id = entry.pokemon_species.url.split('/').filter(Boolean).pop();
+          return {
+            name: entry.pokemon_species.name,
+            id: Number(id)
+          };
+        });
+
         setPokemonList(lista);
-      })
-      .finally(() => {
-        console.log('Cambio');
+      } catch (error) {
+        console.error('Error al cargar Pokémon:', error);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchPokemonByRegion();
   }, [selectedRegion]);
 
+  //Este es el useEffect del fondo
   useEffect(() => {
     const total = 70;
     const getRandomPosition = () => ({
@@ -77,39 +92,42 @@ const Home = () => {
         ))}
       </div>
 
-      <div className='pokemon-container'>
-        <h1>Pokédex nacional</h1>
-        <div id='selector-container'>
+      <main className='pokemon-container'>
+        <section className='pokemon-title'>
+          <h1>Pokédex nacional</h1>
+        </section>
+
+        <section id='selector-container'>
+          <label htmlFor='region-select'>Selecciona una región Pokémon:</label>
           <select
-            id='region'
+            id='region-select'
             value={selectedRegion}
             onChange={(e) => setSelectedRegion(e.target.value)}
           >
-            <option value='kanto'>Kanto</option>
-            <option value='johto'>Johto</option>
-            <option value='hoenn'>Hoenn</option>
+            <option value='kanto'>Kanto (1ª gen)</option>
+            <option value='johto'>Johto (2ª gen)</option>
+            <option value='hoenn'>Hoenn (3ª gen)</option>
           </select>
-        </div>
+        </section>
 
-        {loading ? (
-          <Loading />
-        ) : (
-          <div className='pokemon-grid'>
-            {pokemonList.map((pokemon) => (
-              <Link
-                key={pokemon.id}
-                to={`/pokemon/${pokemon.id}`}
-                className='pokemon-card'
-              >
-                <img
-                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
-                  alt={pokemon.name}
-                />
-              </Link>
-            ))}
-          </div>
-        )}
-      </div>
+        <section className='pokemon-grid'>
+          {loading ? (
+            <Loading />
+          ) : (
+            pokemonList.map((pokemon) => (
+              <article key={pokemon.id} className='pokemon-card'>
+                {/* Esto presuntamente pasa la info  */}
+                <Link
+                  to={`/pokemon/${pokemon.id}`}
+                  state={{ pokemon: pokemon }}
+                >
+                  <img src={getImagenUrl(pokemon.id)} alt={pokemon.name} />
+                </Link>
+              </article>
+            ))
+          )}
+        </section>
+      </main>
     </>
   );
 };

@@ -8,6 +8,12 @@ const Combate = () => {
   const [pokemon2, setPokemon2] = useState('');
   const [winner, setWinner] = useState('');
 
+  const tipoTraducido = {
+    fire: 'fuego',
+    water: 'agua',
+    grass: 'planta'
+  };
+
   const comparar = () => {
     if (pokemon1.type === pokemon2.type) {
       setWinner('¡Empate!');
@@ -16,9 +22,17 @@ const Combate = () => {
       (pokemon1.type === 'grass' && pokemon2.type === 'water') ||
       (pokemon1.type === 'water' && pokemon2.type === 'fire')
     ) {
-      setWinner(`¡Ganó ${pokemon1.name}!`);
+      setWinner(
+        `¡Eso es!, ${tipoTraducido[pokemon1.type]} gana a ${
+          tipoTraducido[pokemon2.type]
+        }!`
+      );
     } else {
-      setWinner(`¡Ganó ${pokemon2.name}!`);
+      setWinner(
+        `¡Eso es!, ${tipoTraducido[pokemon2.type]} gana a ${
+          tipoTraducido[pokemon1.type]
+        }!`
+      );
     }
 
     setTimeout(() => {
@@ -27,17 +41,21 @@ const Combate = () => {
   };
 
   return (
-    <div className='areaJuego'>
+    <main className='areaJuego'>
       <h1>Combate</h1>
-      <div className='combate'>
+      <p className='combate-descripcion'>
+        Juega al conocido piedra, papel o tijeras pero con los tipos de Pokémon:
+        fuego, agua y planta.
+      </p>
+      <section className='combate'>
         <Peticion setPokemonData={setPokemon1} />
         <Peticion setPokemonData={setPokemon2} />
-      </div>
-      <div className='resultados'>
+      </section>
+      <section className='resultados'>
         <Button name='Combatir' action={comparar} />
         {winner && <h2 className='winnerText'>{winner}</h2>}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 };
 

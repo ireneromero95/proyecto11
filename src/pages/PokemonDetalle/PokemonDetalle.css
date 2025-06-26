@@ -9,11 +9,38 @@
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 30px;
-  max-width: 400px;
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pokemon-titulo {
   text-align: center;
 }
 
-.pokemon-detalle-card img {
+.pokemon-titulo h1 {
+  text-transform: capitalize;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.pokemon-detalle-info {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.pokemon-detalle-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  min-width: 200px;
+}
+
+.pokemon-detalle-left img {
   width: 180px;
   height: auto;
   margin-bottom: 20px;
@@ -21,10 +48,9 @@
 
 .pokemon-types {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 20px;
+  justify-content: center;
 }
 
 .pokemon-type {
@@ -37,27 +63,21 @@
 }
 
 .pokemon-description {
+  text-transform: capitalize;
+  flex: 2;
   font-size: 1rem;
   color: #333;
   line-height: 1.5;
-}
-
-.pokemon-info {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
+  min-width: 250px;
 }
 
-.pokemon-info h2 {
-  text-transform: capitalize;
+.pokemon-description p:first-of-type {
+  text-transform: none;
 }
 
-.pokemon-info span {
-  text-transform: capitalize;
-}
-
-/* los colores para todos los tipos */
 .type-fire {
   background-color: #f08030;
 }

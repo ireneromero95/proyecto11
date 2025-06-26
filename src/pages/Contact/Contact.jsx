@@ -84,7 +84,7 @@ const Contact = () => {
   };
 
   return (
-    <div className='contact-container'>
+    <main className='contact-container'>
       <div className='contact-header'>
         <h2>Contacto</h2>
       </div>
@@ -99,76 +99,79 @@ const Contact = () => {
 
       <div className='contact-form-wrapper'>
         <form className='contact-form' onSubmit={handleSubmit}>
-          <div className='form-group'>
-            <label htmlFor='name'>Nombre:</label>
-            <input
-              type='text'
-              id='name'
-              name='name'
-              value={formData.name}
-              onChange={handleChange}
-              placeholder='Tu nombre'
-            />
-          </div>
+          <fieldset className='campodecontacto'>
+            <legend className='form-legend'> Formulario de contacto</legend>
+            <div className='form-group'>
+              <label htmlFor='name'>Nombre:</label>
+              <input
+                type='text'
+                id='name'
+                name='name'
+                value={formData.name}
+                onChange={handleChange}
+                placeholder='Tu nombre'
+              />
+            </div>
 
-          <div className='form-group'>
-            <label htmlFor='email'>Email:</label>
-            <input
-              type='email'
-              id='email'
-              name='email'
-              value={formData.email}
-              onChange={handleChange}
-              placeholder='tu@email.com'
-            />
-          </div>
+            <div className='form-group'>
+              <label htmlFor='email'>Email:</label>
+              <input
+                type='email'
+                id='email'
+                name='email'
+                value={formData.email}
+                onChange={handleChange}
+                placeholder='tu@email.com'
+              />
+            </div>
 
-          <div className='form-group'>
-            <label htmlFor='pokemonType'>Tipo de consulta:</label>
-            <select
-              id='pokemonType'
-              name='pokemonType'
-              value={formData.pokemonType}
-              onChange={handleChange}
-            >
-              <option value='general'>Consulta general</option>
-              <option value='pokedex'>Información de Pokédex</option>
-              <option value='battles'>Batallas Pokémon</option>
-              <option value='events'>Eventos especiales</option>
-              <option value='other'>Otro</option>
-            </select>
-          </div>
+            <div className='form-group'>
+              <label htmlFor='pokemonType'>Tipo de consulta:</label>
+              <select
+                id='pokemonType'
+                name='pokemonType'
+                value={formData.pokemonType}
+                onChange={handleChange}
+              >
+                <option value='general'>Consulta general</option>
+                <option value='pokedex'>Información de Pokédex</option>
+                <option value='battles'>Batallas Pokémon</option>
+                <option value='events'>Eventos especiales</option>
+                <option value='other'>Otro</option>
+              </select>
+            </div>
 
-          <div className='form-group'>
-            <label htmlFor='subject'>Asunto:</label>
-            <input
-              type='text'
-              id='subject'
-              name='subject'
-              value={formData.subject}
-              onChange={handleChange}
-              placeholder='Asunto de tu mensaje'
-            />
-          </div>
+            <div className='form-group'>
+              <label htmlFor='subject'>Asunto:</label>
+              <input
+                type='text'
+                id='subject'
+                name='subject'
+                value={formData.subject}
+                onChange={handleChange}
+                placeholder='Asunto de tu mensaje'
+              />
+            </div>
 
-          <div className='form-group'>
-            <label htmlFor='message'>Mensaje:</label>
-            <textarea
-              id='message'
-              name='message'
-              value={formData.message}
-              onChange={handleChange}
-              placeholder='Escribe tu mensaje aquí...'
-              rows={5}
-            ></textarea>
-          </div>
+            <div className='form-group'>
+              <label htmlFor='message'>Mensaje:</label>
+              <textarea
+                id='message'
+                name='message'
+                value={formData.message}
+                onChange={handleChange}
+                placeholder='Escribe tu mensaje aquí...'
+                rows={5}
+              ></textarea>
+            </div>
 
-          <div className='form-actions'>
-            <Button name='Enviar mensaje' action={handleSubmit} />
-          </div>
+            <div className='form-actions'>
+              <Button name='Enviar mensaje' action={handleSubmit} />
+            </div>
+          </fieldset>
         </form>
 
-        <div className='contact-info'>
+        <aside className='contact-info'>
           <h3>Información de contacto</h3>
           <p>
             <strong>Email:</strong> pokemon@ejemplo.com
@@ -197,9 +200,9 @@ const Contact = () => {
               </a>
             </div>
           </div>
-        </div>
+        </aside>
       </div>
-    </div>
+    </main>
   );
 };
 

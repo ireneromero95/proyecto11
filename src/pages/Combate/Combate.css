@@ -4,6 +4,10 @@
   margin: 20px;
 }
 
+.combate-descripcion {
+  text-align: center;
+}
+
 .resultados {
   display: flex;
   flex-direction: column;
