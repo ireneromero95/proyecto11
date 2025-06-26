@@ -54,8 +54,8 @@ PokeApp es una aplicación web que muestra información detallada de Pokémon ut
 ## Estructura del proyecto
 
 public/
-├── pokeball.png
-└── index.html
+├── pokeball.png/
+└── index.html/
 src/
 ├── components/
 │ ├── Button/
