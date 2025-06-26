@@ -28,14 +28,16 @@ PokeApp es una aplicación web que muestra información detallada de Pokémon ut
 `git clone https://github.com/tu-usuario/pokeapp.git`
 
 2. Entra en la carpeta del proyecto:
+
 `cd pokeapp`
 
 
-3. Instala las dependencias:
+4. Instala las dependencias:
+   
 `npm install`
 
 
-4. Inicia la app en modo desarrollo:
+6. Inicia la app en modo desarrollo:
 
 `npm start`
 
