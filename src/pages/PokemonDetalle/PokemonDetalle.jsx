@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react';
 import './PokemonDetalle.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 const PokemonDetalle = () => {
+  const { id } = useParams();
   const location = useLocation();
   const pokemonBuscado = location.state?.pokemon;
   const [pokemonData, setPokemonData] = useState(pokemonBuscado);
   const [loading, setLoading] = useState(true);
-
-  const pathname = window.location.pathname;
-  const id = pathname.split('/').pop();
-
-  console.log('Pokemon recibido por location:', pokemonBuscado);
 
   useEffect(() => {
     const fetchPokemon = async () => {
